@@ -8,4 +8,5 @@ public class Main {
 	// write your code here
         new GUI().setVisible(true);
          }
+
 }
