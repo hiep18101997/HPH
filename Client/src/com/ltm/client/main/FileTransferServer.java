@@ -15,8 +15,9 @@ public class FileTransferServer {
         ServerSocket ssock = new ServerSocket(8080);
         Socket socket = ssock.accept();
 
-        //The InetAddress specification
+        //The InetAddress specification  IA.getHostAddress()
         InetAddress IA = InetAddress.getByName("localhost");
+        System.out.println(  IA.getHostAddress());
 
         //Specify the file
         File file = new File("cat.jpg");
@@ -26,7 +27,7 @@ public class FileTransferServer {
         //Get socket's output stream
         OutputStream os = socket.getOutputStream();
 
-        //Read File Contents into contents array 
+        //Read FileTranfer Contents into contents array
         byte[] contents;
         long fileLength = file.length();
         long current = 0;
@@ -42,14 +43,14 @@ public class FileTransferServer {
             }
             contents = new byte[size];
             bis.read(contents, 0, size);
-            os.write(contents);
+            os.write(2);
             System.out.print("Sending file ... "+(current*100)/fileLength+"% complete!");
         }
 
         os.flush();
-        //File transfer done. Close the socket connection!
+        //FileTranfer transfer done. Close the socket connection!
         socket.close();
         ssock.close();
-        System.out.println("File sent succesfully!");
+        System.out.println("FileTranfer sent succesfully!");
     }
 }
