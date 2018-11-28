@@ -10,7 +10,8 @@ public class FileTransferClient {
     public static void main(String[] args) throws Exception{
 
         //Initialize socket
-        Socket socket = new Socket(InetAddress.getByName("localhost"), '');
+        System.out.println(InetAddress.getLocalHost());
+        Socket socket = new Socket(InetAddress.getByName("localhost"), 8080);
         byte[] contents = new byte[10000];
 
         //Initialize the FileOutputStream to the output file's full path.
