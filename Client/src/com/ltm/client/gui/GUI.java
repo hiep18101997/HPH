@@ -1,5 +1,7 @@
 package com.ltm.client.gui;
 
+import com.ltm.client.main.Main;
+import com.ltm.client.panel.ListFilePanel;
 import com.ltm.client.panel.MainPanel;
 
 import javax.swing.*;
@@ -8,11 +10,14 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class GUI extends JFrame {
-    public static final int WFRAME = 300;
-    public static final int HFRAME = 200;
+    public static final int WFRAME = 700;
+    public static final int HFRAME = 400;
     public static final String KEY_PANEL_MAIN= "main";
+    public static final String KEY_PANEL_FILE= "listfile";
 
+    private ListFilePanel listFilePanel;
     private MainPanel mainPanel;
+    private JScrollPane jScrollPane;
 
     public GUI() {
         initGUI();
@@ -21,17 +26,25 @@ public class GUI extends JFrame {
     }
 
     private void addComps() {
+        listFilePanel.setAutoscrolls(true);
+        jScrollPane.setPreferredSize(new Dimension( 350,400));
+        add(jScrollPane, KEY_PANEL_FILE);
         add(mainPanel, KEY_PANEL_MAIN);
+
     }
 
     private void initComps() {
+        listFilePanel=new ListFilePanel();
         mainPanel=new MainPanel();
+
+        jScrollPane=new JScrollPane(listFilePanel);
+
     }
 
     private void initGUI() {
         setTitle("Client - UET - HPH");
         setSize(WFRAME, HFRAME);
-        setLayout(new CardLayout());
+        setLayout(new GridLayout(1,2));
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
