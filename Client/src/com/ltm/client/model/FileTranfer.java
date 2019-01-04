@@ -8,7 +8,15 @@ public class FileTranfer {
     private String name;
     private String fromIP;
 
-    public FileTranfer(String name,String iconType) {
+    public String getFromIP() {
+        return fromIP;
+    }
+
+    public void setFromIP(String fromIP) {
+        this.fromIP = fromIP;
+    }
+
+    public FileTranfer(String name, String iconType) {
 
         this.iconType = iconType;
         this.name = name;
