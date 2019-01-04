@@ -47,12 +47,12 @@ int main(int argc, char const *argv[])
     
     while(continu == 1){
         char mess_from_client[225];
-        printf("Nhap danh sach file gui den server neu muon down file thi nhan bye\n");
+        printf("Nhap ten file muon down tu server bye\n");
         gets(mess_from_client);
         fflush(stdin);
         hello = &mess_from_client;
 
-        printf("Tin nhan ban nhan dc tu server: \n");
+        printf("Ket qua server tra ve: \n");
         send(sock , hello , strlen(hello) , 0 ); 
         // printf("Hello message sent\n"); 
         valread = read( sock , buffer, 1024); 
