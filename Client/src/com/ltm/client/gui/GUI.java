@@ -1,6 +1,5 @@
 package com.ltm.client.gui;
 
-import com.ltm.client.main.Main;
 import com.ltm.client.panel.ListFilePanel;
 import com.ltm.client.panel.MainPanel;
 
@@ -17,7 +16,7 @@ public class GUI extends JFrame {
 
     private ListFilePanel listFilePanel;
     private MainPanel mainPanel;
-    private JScrollPane jScrollPane;
+    private JScrollPane jScrollPaneList;
 
     public GUI() {
         initGUI();
@@ -27,8 +26,8 @@ public class GUI extends JFrame {
 
     private void addComps() {
         listFilePanel.setAutoscrolls(true);
-        jScrollPane.setPreferredSize(new Dimension( 350,400));
-        add(jScrollPane, KEY_PANEL_FILE);
+        jScrollPaneList.setPreferredSize(new Dimension( 350,400));
+        add(jScrollPaneList, KEY_PANEL_FILE);
         add(mainPanel, KEY_PANEL_MAIN);
 
     }
@@ -37,7 +36,7 @@ public class GUI extends JFrame {
         listFilePanel=new ListFilePanel();
         mainPanel=new MainPanel();
 
-        jScrollPane=new JScrollPane(listFilePanel);
+        jScrollPaneList =new JScrollPane(listFilePanel);
 
     }
 

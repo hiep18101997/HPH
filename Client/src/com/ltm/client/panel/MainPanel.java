@@ -9,10 +9,11 @@ import java.io.File;
 
 public class MainPanel extends BaseComps {
     private static JTextArea jTextArea;
+    private  JScrollPane jScrollPane;
 
     @Override
     protected void addComps() {
-        add(jTextArea);
+        add(jScrollPane);
     }
 
     @Override
@@ -20,7 +21,8 @@ public class MainPanel extends BaseComps {
 
         jTextArea = new JTextArea();
         jTextArea.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        jTextArea.setFocusable(false);
+        jTextArea.setEditable(false);
+        jScrollPane=new JScrollPane(jTextArea);
 
 
     }

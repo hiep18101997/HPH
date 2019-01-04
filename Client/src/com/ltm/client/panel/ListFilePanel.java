@@ -1,21 +1,24 @@
 package com.ltm.client.panel;
 
+import com.ltm.client.model.FileHadSent;
 import com.ltm.client.model.FileTranfer;
+import com.ltm.client.thread.SocketThread;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Random;
 
 public class ListFilePanel extends BaseComps {
     private ArrayList<FileTranfer> fileTranfers;
     private JLabel labelServer;
+    private Socket socket;
 
     @Override
     protected void addComps() {
@@ -24,65 +27,173 @@ public class ListFilePanel extends BaseComps {
 
     @Override
     protected void initComps() {
-        setBackground(Color.WHITE);
+        Random random=new Random();
+        int port = random.nextInt(10000);
+        try {
+            socket = new Socket("192.168.43.72", 8080);
+            InputStream in = socket.getInputStream();
+            OutputStream out = socket.getOutputStream();
+            String msg = port + "," + getListFile();
+            out.write(msg.getBytes());
 
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+            String s = bufferedReader.readLine();
+            fileTranfers = showListFile(s);
+            in.close();
+            out.close();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        setBackground(Color.WHITE);
         String title = "Các file hiện có trên server ";
         Border border = BorderFactory.createTitledBorder(title);
         setBorder(border);
-        fileTranfers = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            if (i%3==0){
-                fileTranfers.add(new FileTranfer("File "+i +".mp3"));
-            }else if (i%3==1){
-                fileTranfers.add(new FileTranfer("File "+i +".txt"));
-            }else {
-                fileTranfers.add(new FileTranfer("File "+i +".png"));
-            }
-        }
-        setPreferredSize(new Dimension(350, fileTranfers.size()/3 * 110));
-        setLayout(new GridLayout(fileTranfers.size()/3+1,3));
-        for (int i = 0; i< fileTranfers.size(); i++){
+
+
+        setPreferredSize(new Dimension(350, fileTranfers.size() * 90));
+        setLayout(new GridLayout(fileTranfers.size() + 1, 1));
+        for (int i = 0; i < fileTranfers.size(); i++) {
             JLabel lbFile = new JLabel();
             lbFile.setBackground(Color.CYAN);
-            if (i%3==0){
+            if (fileTranfers.get(i).getIconType().equals("mp3")) {
                 lbFile.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/resource/mp3.png")).getImage()));
-            }else if (i%3==1){
+            } else if (fileTranfers.get(i).getIconType().equals("txt")) {
                 lbFile.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/resource/txt.png")).getImage()));
-            }else {
+            } else if (fileTranfers.get(i).getIconType().equals("png")) {
                 lbFile.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/resource/png.png")).getImage()));
+            } else if (fileTranfers.get(i).getIconType().equals("jpg")) {
+                lbFile.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/resource/jpg.png")).getImage()));
+            } else {
+                lbFile.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/resource/file.png")).getImage()));
             }
 
-            lbFile.setText(fileTranfers.get(i).getName());
-            lbFile.setHorizontalTextPosition(JLabel.CENTER);
-            lbFile.setVerticalTextPosition(JLabel.BOTTOM);
-            int finalI = i;
+            lbFile.setText(fileTranfers.get(i).getName().substring(fileTranfers.get(i).getName().lastIndexOf(":") + 1));
+            lbFile.setToolTipText(fileTranfers.get(i).getName());
+            lbFile.setHorizontalTextPosition(JLabel.RIGHT);
+            lbFile.setVerticalTextPosition(JLabel.CENTER);
+            String name = fileTranfers.get(i).getName();
             lbFile.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    download(fileTranfers.get(finalI).getName());
+                    showInfo(name);
                 }
             });
-            ListFilePanel.this.add(lbFile,SwingConstants.CENTER);
+            ListFilePanel.this.add(lbFile, SwingConstants.CENTER);
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    createListener(port);
+                }
+            }).start();
         }
     }
 
-    private void download(String name) {
-        Object[] options = { "Tải", "Hủy" };
-        File file = new File(String.valueOf(getClass().getResource("/resource/png.png")));
-        DateFormat FORMATTER = new SimpleDateFormat(
-                "hh:mm dd/MM/yyyy ");
-        String s="";
-        s+="Name : " + file.getName()+"\n";
-        s+="Size : " + (double)file.length()+"\n";
-        s+="Last modified : " + FORMATTER.format(new Date(file.lastModified()))+"\n";
-        int result= JOptionPane.showOptionDialog(null, s, "Thông tin file",
+    private void createListener(int port) {
+        try {
+            ServerSocket serverSocket = new ServerSocket(port);
+            FileHadSent numberFileHasSent = new FileHadSent();
+            while (true) {
+                Socket connection = null;
+                try {
+                    connection = serverSocket.accept();
+                    DataInputStream dis = new DataInputStream(connection.getInputStream());
+                    DataOutputStream dos = new DataOutputStream(connection.getOutputStream());
+                    Thread handleThread = new SocketThread(connection, dis, dos, numberFileHasSent);
+                    handleThread.start();
+                } catch (Exception e) {
+                    connection.close();
+                    e.printStackTrace();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private ArrayList<FileTranfer> showListFile(String s) {
+        String[] splitString = s.split(",");
+        ArrayList<FileTranfer> fileTranfers = new ArrayList<>();
+        for (String str : splitString) {
+            String name = str;
+            String type = name.substring(name.lastIndexOf(".") + 1);
+            fileTranfers.add(new FileTranfer(name, type));
+        }
+        fileTranfers.toString();
+        return fileTranfers;
+    }
+
+    private String getListFile() {
+        File folder = new File("data");
+        File[] listOfFiles = folder.listFiles();
+        String listFiles = "";
+        ArrayList<FileTranfer> fileTranfers = new ArrayList<>();
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].isFile()) {
+                if (i < listOfFiles.length - 1) {
+                    listFiles = listFiles + listOfFiles[i].getName() + ",";
+                } else {
+                    listFiles = listFiles + listOfFiles[i].getName();
+                }
+            } else if (listOfFiles[i].isDirectory()) {
+                System.out.println("Directory " + listOfFiles[i].getName());
+            }
+        }
+        return listFiles;
+    }
+
+    private void showInfo(String name) {
+        System.out.println(name);
+        Object[] options = {"Tải", "Hủy"};
+        String fileName = name.substring(name.lastIndexOf(":") + 1);
+        String fromIP = name.substring(name.indexOf(":"), name.lastIndexOf(":"));
+        String port = name.substring(0, name.indexOf(":"));
+        String s = "";
+        s += "Name : " + fileName + "\n";
+        s += "FromIP : " + fromIP + "\n";
+        s += "Port : " + port + "\n";
+        int result = JOptionPane.showOptionDialog(null, s, "Thông tin file",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
                 null, options, null);
-        if (result==JOptionPane.YES_OPTION){
-
+        if (result == JOptionPane.YES_OPTION) {
+            download(fromIP, port, fileName);
             MainPanel.addComent(s);
-            MainPanel.addComent("Đang tải file "+name+"...");
-            MainPanel.addComent("Đã tải file "+name);
+            MainPanel.addComent("Đang tải file " + name + "...");
+            MainPanel.addComent("Đã tải file " + name + "\n");
+        }
+    }
+
+    private void download(String fromIP, String port, String fileName) {
+        try {
+            Socket connSocket = new Socket(fromIP, Integer.valueOf(port));
+            DataInputStream dis = new DataInputStream(connSocket.getInputStream());
+            DataOutputStream dos = new DataOutputStream(connSocket.getOutputStream());
+            while (true) {
+                dos.writeUTF(fileName);
+                String received = dis.readUTF();
+                System.out.println(received);
+                if (received.equals("found")) {
+                    int size = dis.readInt();
+                    System.out.println("The file has: " + size);
+                    byte[] contents = new byte[size];
+                    dis.readFully(contents);
+                    DataOutputStream dataOutput = new DataOutputStream(new FileOutputStream("data/" + fileName));
+                    dataOutput.write(contents);
+                    dataOutput.flush();
+                    System.out.println("File saved");
+                    dataOutput.close();
+                } else {
+                    System.out.println("File not exits");
+                }
+                dis.close();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
