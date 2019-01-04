@@ -28,7 +28,7 @@ public class ListFilePanel extends BaseComps {
     @Override
     protected void initComps() {
         Random random=new Random();
-        int port = random.nextInt(10000);
+        int port = 1234;
         try {
             socket = new Socket("192.168.43.72", 8080);
             InputStream in = socket.getInputStream();
@@ -150,7 +150,7 @@ public class ListFilePanel extends BaseComps {
         System.out.println(name);
         Object[] options = {"Tải", "Hủy"};
         String fileName = name.substring(name.lastIndexOf(":") + 1);
-        String fromIP = name.substring(name.indexOf(":"), name.lastIndexOf(":"));
+        String fromIP = name.substring(name.indexOf(":")+1, name.lastIndexOf(":"));
         String port = name.substring(0, name.indexOf(":"));
         String s = "";
         s += "Name : " + fileName + "\n";
@@ -168,6 +168,8 @@ public class ListFilePanel extends BaseComps {
     }
 
     private void download(String fromIP, String port, String fileName) {
+        System.out.println(fromIP+","+port+","+fileName);
+
         try {
             Socket connSocket = new Socket(fromIP, Integer.valueOf(port));
             DataInputStream dis = new DataInputStream(connSocket.getInputStream());
