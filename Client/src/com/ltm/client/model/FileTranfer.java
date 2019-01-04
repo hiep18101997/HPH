@@ -6,8 +6,9 @@ import java.awt.*;
 public class FileTranfer {
     private String iconType;
     private String name;
+    private String fromIP;
 
-    public FileTranfer(String name) {
+    public FileTranfer(String name,String iconType) {
 
         this.iconType = iconType;
         this.name = name;
