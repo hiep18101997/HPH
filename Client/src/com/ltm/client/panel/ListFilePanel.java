@@ -27,21 +27,18 @@ public class ListFilePanel extends BaseComps {
 
     @Override
     protected void initComps() {
-        Random rand = new Random();
-        int port = rand.nextInt(10000);
-        createListener(port);
+        Random random=new Random();
+        int port = random.nextInt(10000);
         try {
             socket = new Socket("192.168.43.72", 8080);
             InputStream in = socket.getInputStream();
             OutputStream out = socket.getOutputStream();
-
-            String msg = getListFile();
+            String msg = port + "," + getListFile();
             out.write(msg.getBytes());
 
-            DataInputStream dIn = new DataInputStream(in);
-            String s = dIn.readLine();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+            String s = bufferedReader.readLine();
             fileTranfers = showListFile(s);
-            dIn.close();
             in.close();
             out.close();
 
@@ -49,6 +46,7 @@ public class ListFilePanel extends BaseComps {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         setBackground(Color.WHITE);
         String title = "Các file hiện có trên server ";
         Border border = BorderFactory.createTitledBorder(title);
@@ -80,10 +78,17 @@ public class ListFilePanel extends BaseComps {
             lbFile.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    download(name);
+                    showInfo(name);
                 }
             });
             ListFilePanel.this.add(lbFile, SwingConstants.CENTER);
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    createListener(port);
+                }
+            }).start();
         }
     }
 
@@ -118,6 +123,7 @@ public class ListFilePanel extends BaseComps {
             String type = name.substring(name.lastIndexOf(".") + 1);
             fileTranfers.add(new FileTranfer(name, type));
         }
+        fileTranfers.toString();
         return fileTranfers;
     }
 
@@ -140,23 +146,54 @@ public class ListFilePanel extends BaseComps {
         return listFiles;
     }
 
-    private void download(String name) {
+    private void showInfo(String name) {
         System.out.println(name);
         Object[] options = {"Tải", "Hủy"};
         String fileName = name.substring(name.lastIndexOf(":") + 1);
-        String fromIP = name.substring(0, name.lastIndexOf(":"));
+        String fromIP = name.substring(name.indexOf(":"), name.lastIndexOf(":"));
+        String port = name.substring(0, name.indexOf(":"));
         String s = "";
         s += "Name : " + fileName + "\n";
         s += "FromIP : " + fromIP + "\n";
-        s += "Port : " + fromIP + "\n";
+        s += "Port : " + port + "\n";
         int result = JOptionPane.showOptionDialog(null, s, "Thông tin file",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
                 null, options, null);
         if (result == JOptionPane.YES_OPTION) {
-
+            download(fromIP, port, fileName);
             MainPanel.addComent(s);
             MainPanel.addComent("Đang tải file " + name + "...");
             MainPanel.addComent("Đã tải file " + name + "\n");
+        }
+    }
+
+    private void download(String fromIP, String port, String fileName) {
+        try {
+            Socket connSocket = new Socket(fromIP, Integer.valueOf(port));
+            DataInputStream dis = new DataInputStream(connSocket.getInputStream());
+            DataOutputStream dos = new DataOutputStream(connSocket.getOutputStream());
+            while (true) {
+                dos.writeUTF(fileName);
+                String received = dis.readUTF();
+                System.out.println(received);
+                if (received.equals("found")) {
+                    int size = dis.readInt();
+                    System.out.println("The file has: " + size);
+                    byte[] contents = new byte[size];
+                    dis.readFully(contents);
+                    DataOutputStream dataOutput = new DataOutputStream(new FileOutputStream("data/" + fileName));
+                    dataOutput.write(contents);
+                    dataOutput.flush();
+                    System.out.println("File saved");
+                    dataOutput.close();
+                } else {
+                    System.out.println("File not exits");
+                }
+                dis.close();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

@@ -31,6 +31,7 @@ public class SocketThread extends Thread {
                 try {
                     File fileToSend = new File("data/"+received);
                     DataInputStream dataInput = new DataInputStream(new FileInputStream(fileToSend));
+                    dos.writeUTF("found");
                     int fileLength = (int) fileToSend.length();
                     dos.writeInt(fileLength);
                     byte[] contents = new byte[(int) fileToSend.length()];
@@ -44,6 +45,7 @@ public class SocketThread extends Thread {
                     System.out.println("Total files had sent: " + counter.getValue());
                 } catch (FileNotFoundException e) {
                     System.err.println(e.toString());
+                    dos.writeUTF("not found");
                 }
             } catch (SocketException ex) {
                 System.err.println(ex.toString());

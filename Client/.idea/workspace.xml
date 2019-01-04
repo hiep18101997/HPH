@@ -5,21 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f5000ce-bbfc-4231-a12e-d39c50e56bdc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/ltm/client/model/FileHadSent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/ltm/client/thread/SocketThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HPH/META-INF/HPH.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HPH/com/ltm/client/gui/GUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HPH/com/ltm/client/gui/GUI$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HPH/com/ltm/client/gui/GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HPH/com/ltm/client/gui/GUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HPH/com/ltm/client/main/FileTransferClient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HPH/com/ltm/client/main/FileTransferServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HPH/com/ltm/client/panel/MainPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HPH/com/ltm/client/panel/MainPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ltm/client/gui/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ltm/client/gui/GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ltm/client/main/FileTransferClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ltm/client/main/FileTransferServer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ltm/client/model/FileTranfer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ltm/client/model/FileTranfer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/ltm/client/panel/ListFilePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ltm/client/panel/ListFilePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ltm/client/panel/MainPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ltm/client/panel/MainPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ltm/client/thread/SocketThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ltm/client/thread/SocketThread.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,43 +29,36 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/ltm/client/model/FileTranfer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+            <state relative-caret-position="144">
+              <caret line="8" column="26" lean-forward="true" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/ltm/client/panel/ListFilePanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="150" column="18" selection-start-line="150" selection-start-column="18" selection-end-line="150" selection-end-column="18" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2978#3149#0" expanded="true" />
-                <element signature="e#3148#3149#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/ltm/client/thread/SocketThread.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="738">
-              <caret line="45" column="53" selection-start-line="45" selection-start-column="53" selection-end-line="45" selection-end-column="53" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/ltm/client/panel/ListFilePanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="90" column="13" selection-start-line="90" selection-start-column="13" selection-end-line="90" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#3128#3299#0" expanded="true" />
+                <element signature="e#3298#3299#0" expanded="true" />
+                <element signature="e#3473#3474#0" expanded="true" />
+                <element signature="e#3529#3530#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/ltm/client/model/FileHadSent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            <state relative-caret-position="54">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
         </entry>
@@ -239,7 +219,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="242" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546584253733" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546589627536" />
     <property name="last_opened_file_path" value="$USER_HOME$/Desktop/P2P-master" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
@@ -370,8 +350,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="49" y="25" width="1317" height="743" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" id="Project" order="0" visible="true" weight="0.26080126" />
+      <window_info id="Project" order="0" visible="true" weight="0.26080126" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -381,7 +362,7 @@
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32847896" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49882168" visible="true" weight="0.30097088" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49882168" visible="true" weight="0.30097088" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39967638" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -612,39 +593,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/ltm/client/model/FileTranfer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/ltm/client/panel/ListFilePanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="150" column="18" selection-start-line="150" selection-start-column="18" selection-end-line="150" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2978#3149#0" expanded="true" />
-            <element signature="e#3148#3149#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/ltm/client/thread/SocketThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="738">
-          <caret line="45" column="53" selection-start-line="45" selection-start-column="53" selection-end-line="45" selection-end-column="53" />
+        <state relative-caret-position="126">
+          <caret line="14" column="21" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/jdk-11/lib/src.zip!/java.base/java/io/DataInputStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="505" column="24" selection-start-line="505" selection-start-column="24" selection-end-line="505" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/ltm/client/model/FileTranfer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="26" lean-forward="true" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/ltm/client/model/FileHadSent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        <state relative-caret-position="54">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/jdk-11/lib/src.zip!/java.base/java/lang/Thread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="831" column="16" selection-start-line="831" selection-start-column="16" selection-end-line="831" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/ltm/client/panel/ListFilePanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="90" column="13" selection-start-line="90" selection-start-column="13" selection-end-line="90" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3128#3299#0" expanded="true" />
+            <element signature="e#3298#3299#0" expanded="true" />
+            <element signature="e#3473#3474#0" expanded="true" />
+            <element signature="e#3529#3530#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
