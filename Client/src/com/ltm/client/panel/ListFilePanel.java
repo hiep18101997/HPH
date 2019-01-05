@@ -30,7 +30,7 @@ public class ListFilePanel extends BaseComps {
         Random random=new Random();
         int port = 1234;
         try {
-            socket = new Socket("192.168.43.72", 8080);
+            socket = new Socket("192.168.100.201", 8080);
             InputStream in = socket.getInputStream();
             OutputStream out = socket.getOutputStream();
             String msg = port + "," + getListFile();
@@ -160,10 +160,11 @@ public class ListFilePanel extends BaseComps {
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
                 null, options, null);
         if (result == JOptionPane.YES_OPTION) {
-            download(fromIP, port, fileName);
             MainPanel.addComent(s);
-            MainPanel.addComent("Đang tải file " + name + "...");
-            MainPanel.addComent("Đã tải file " + name + "\n");
+            MainPanel.addComent("Đang tải file " + fileName + "...");
+            download(fromIP, port, fileName);
+
+
         }
     }
 
@@ -179,6 +180,7 @@ public class ListFilePanel extends BaseComps {
                 String received = dis.readUTF();
                 System.out.println(received);
                 if (received.equals("found")) {
+                    long t1=System.currentTimeMillis();
                     int size = dis.readInt();
                     System.out.println("The file has: " + size);
                     byte[] contents = new byte[size];
@@ -188,8 +190,20 @@ public class ListFilePanel extends BaseComps {
                     dataOutput.flush();
                     System.out.println("File saved");
                     dataOutput.close();
+                    long t2=System.currentTimeMillis();
+                    double delta=(double) (t2-t1)/1000;
+                    MainPanel.addComent("Đã tải file " + fileName + "\n");
+                    MainPanel.addComent("Thời gian tải: " + delta + " s\n");
+                    
+                    OutputStream outputStream=socket.getOutputStream();
+                    String msg = port + "," + getListFile();
+                    outputStream.write(msg.getBytes());
+                    outputStream.close();
+
+
                 } else {
                     System.out.println("File not exits");
+                    MainPanel.addComent("Không tìm thấy file " +"\n");
                 }
                 dis.close();
             }

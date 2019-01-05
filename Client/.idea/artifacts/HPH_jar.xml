@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="HPH:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/HPH_jar</output-path>
+    <root id="archive" name="HPH.jar">
+      <element id="module-output" name="HPH" />
+    </root>
+  </artifact>
+</component>
