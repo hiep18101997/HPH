@@ -224,8 +224,20 @@ int main(int argc, char const *argv[])
             printf("\nKet Qua Doc File:\n\n");
             for(int i=1;i<count;i++){
                 // printf("%s\n",tokens2[i]);
-                strcat(output, tokens2[i]);
-                strcat(output, ",");
+
+                //kiem tra file co phai thuoc ve client dang gui ko
+                char** tok;
+                char a[1024] = "";
+                strcat(a, tokens2[i]);
+                tok = str_split(tokens2[i], ':');
+                if(tok){
+                    if(strcmp(*(tok + 1), str_cli_ip) != 0){
+                      
+                      strcat(output, a);
+                      strcat(output, ",");
+                    }
+                }
+                
             }
             send(new_socket, output, strlen(output), 0 );
             printf("gui thanh cong danh sach file cho client: %s", output );
